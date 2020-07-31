@@ -1,7 +1,7 @@
 const jwt = require('jsonwebtoken')
 const MissingParamError = require('../errors/missing-param-error')
 
-class TokenGenerator {
+module.exports = class TokenGenerator {
   constructor (secret) {
     this.secret = secret
   }
@@ -13,8 +13,6 @@ class TokenGenerator {
     if (!id) {
       throw new MissingParamError('id')
     }
-    return jwt.sign(id, this.secret)
+    return jwt.sign({ _id: id }, this.secret)
   }
 }
-
-module.exports = TokenGenerator
